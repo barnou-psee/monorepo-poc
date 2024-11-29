@@ -14,6 +14,6 @@ Metavision base python module
 
 __version__ = "0.0.0"
 
-from .base import random_float, random_int
+from .base import random_float, random_int, add_list
 
-__all__ = ["__version__", "random_float", "random_int"]
+__all__ = ["__version__", "random_float", "random_int", "add_list"]

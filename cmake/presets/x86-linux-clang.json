@@ -1,0 +1,76 @@
+{
+  "version": 6,
+  "include": [
+    "base.json",
+    "compilers/clang.json",
+    "configs/debug.json",
+    "configs/release.json",
+    "configs/bindings.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "x86-linux-clang-release",
+      "inherits": [
+        "base",
+        "clang",
+        "release"
+      ],
+      "displayName": "Linux clang release"
+    },
+    {
+      "name": "x86-linux-clang-debug",
+      "inherits": [
+        "base",
+        "clang",
+        "debug"
+      ],
+      "displayName": "Linux clang debug"
+    },
+    {
+      "name": "x86-linux-clang-release-bindings",
+      "inherits": [
+        "base",
+        "clang",
+        "release",
+        "bindings"
+      ],
+      "displayName": "Linux clang release with bindings"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "x86-linux-clang-release",
+      "inherits": "base",
+      "configurePreset": "x86-linux-clang-release"
+    },
+    {
+      "name": "x86-linux-clang-debug",
+      "inherits": "base",
+      "configurePreset": "x86-linux-clang-debug"
+    },
+    {
+      "name": "x86-linux-clang-release-bindings",
+      "inherits": "base",
+      "configurePreset": "x86-linux-clang-release-bindings"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "x86-linux-clang-release",
+      "inherits": "base",
+      "configurePreset": "x86-linux-clang-release"
+    },
+    {
+      "name": "x86-linux-clang-debug",
+      "inherits": "base",
+      "configurePreset": "x86-linux-clang-debug"
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "x86-linux-clang-release",
+      "inherits": "base",
+      "configurePreset": "x86-linux-clang-release"
+    }
+  ]
+}

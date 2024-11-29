@@ -4,9 +4,12 @@ export PATH := join(justfile_directory(), ".venv/bin") + ":" + env_var('PATH')
 import 'just/private.just'
 
 # Python related jobs
+mod cpp 'just/cpp.just'
 mod py 'just/py.just'
 
+mod foo 'metavision-foo/justfile'
 mod base 'metavision-base/justfile'
+mod extended 'metavision-extended/justfile'
 
 # Install uv environement
 install: _check-uv _check-jfrog
@@ -15,6 +18,9 @@ install: _check-uv _check-jfrog
     uv sync --all-extras --all-packages --no-install-project --index https://$JFROG_USERNAME:$JFROG_PASSWORD@artifactory.devops.devops-psee.net/artifactory/api/pypi/prophesee-cimaging-pypi/simple
     @just _setup-conan
     @just _init-git
+
+_clean-build:
+    rm -rf dist
 
 # Check the lockfile, run precommit & deptry
 check:

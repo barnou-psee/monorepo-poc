@@ -6,6 +6,8 @@
 
 import numpy as np
 
+import metavision.foo
+
 
 def random_float(shape):
     """Get a random float array"""
@@ -15,3 +17,8 @@ def random_float(shape):
 def random_int(shape):
     """Get a random int array"""
     return np.random.random(shape).astype(np.int32)
+
+
+def add_list(a, b):
+    assert len(a) == len(b)
+    return [metavision.foo.add(ai, bi) for ai, bi in zip(a, b)]

@@ -5,6 +5,7 @@ requires-python = ">=3.10, <4.0"
 members = [
     "metavision-base",
     "metavision-extended",
+    "metavision-foo",
     "monorepo-poc",
 ]
 
@@ -657,11 +658,15 @@ name = "metavision-base"
 version = "0.1.0"
 source = { editable = "metavision-base" }
 dependencies = [
+    { name = "metavision-foo" },
     { name = "numpy" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "numpy" }]
+requires-dist = [
+    { name = "metavision-foo", editable = "metavision-foo" },
+    { name = "numpy" },
+]
 
 [[package]]
 name = "metavision-extended"
@@ -673,6 +678,11 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "metavision-base", editable = "metavision-base" }]
+
+[[package]]
+name = "metavision-foo"
+version = "0.0.1"
+source = { editable = "metavision-foo" }
 
 [[package]]
 name = "mkdocs"
@@ -814,6 +824,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "metavision-base" },
     { name = "metavision-extended" },
+    { name = "metavision-foo" },
 ]
 
 [package.optional-dependencies]
@@ -878,6 +889,7 @@ requires-dist = [
     { name = "griffe", marker = "extra == 'docs'", specifier = ">=1.2.0" },
     { name = "metavision-base", editable = "metavision-base" },
     { name = "metavision-extended", editable = "metavision-extended" },
+    { name = "metavision-foo", editable = "metavision-foo" },
     { name = "mkdocs", marker = "extra == 'docs'", specifier = ">=1.6.1" },
     { name = "mkdocs-autorefs", marker = "extra == 'docs'", specifier = ">=1.2.0" },
     { name = "mkdocs-material", marker = "extra == 'docs'", specifier = ">=9.5.39" },
@@ -894,6 +906,9 @@ requires-dist = [
     { name = "pytest-mock", marker = "extra == 'test'", specifier = ">=3.12.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.6.9" },
 ]
+
+[package.metadata.requires-dev]
+dev = []
 
 [[package]]
 name = "mypy"

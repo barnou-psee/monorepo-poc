@@ -1,0 +1,48 @@
+{
+  "version": 6,
+  "include": [
+    "generators/ninja.json"
+  ],
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "configurePreset": "base"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "configurePreset": "base",
+      "output": {
+        "outputOnFailure": true,
+        "verbosity": "verbose"
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": true
+      }
+    }
+  ],
+  "packagePresets": [
+    {
+      "name": "base",
+      "generators": [
+        "TGZ"
+      ],
+      "configurePreset": "base",
+      "vendorName": "Prophesee",
+      "output": {
+        "verbose": true
+      }
+    }
+  ]
+}

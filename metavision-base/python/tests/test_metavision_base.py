@@ -15,3 +15,9 @@ def test_random_float() -> None:
 def test_random_int() -> None:
     a = metavision.base.random_int((5, 10))
     assert a.shape == (5, 10)
+
+
+def test_add_list() -> None:
+    a = [0, 1, 2, 3]
+    b = [4, 5, 6, 7]
+    assert metavision.base.add_list(a, b) == [4, 6, 8, 10]

@@ -1,7 +1,7 @@
 [project]
 name = "monorepo-poc"
 version = "0.1"
-dependencies = ["metavision-base", "metavision-extended"]
+dependencies = ["metavision-foo", "metavision-base", "metavision-extended"]
 requires-python = ">=3.10,<4.0"
 
 [project.urls]
@@ -12,11 +12,12 @@ Documentation = "https://barnou-psee.github.io/monorepo-poc/"
 dev-dependencies = []
 
 [tool.uv.sources]
+metavision-foo = { workspace = true }
 metavision-base = { workspace = true }
 metavision-extended = { workspace = true }
 
 [tool.uv.workspace]
-members = ["metavision-base", "metavision-extended"]
+members = ["metavision-foo", "metavision-base", "metavision-extended"]
 
 [project.optional-dependencies]
 docs = [
