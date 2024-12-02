@@ -10,7 +10,7 @@ build-backend = "scikit_build_core.build"
 
 [tool.scikit-build]
 cmake.version = ">=3.26.1"
-cmake.args = ["-S", "..", "--preset", "x86-linux-gcc-release-bindings"]
+cmake.args = ["--preset", "x86-linux-gcc-release-bindings"]
 wheel.packages = ["python/metavision"]
 wheel.license-files = []
 sdist.include = ["python/metavision/**/*.so"]

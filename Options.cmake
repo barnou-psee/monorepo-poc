@@ -46,4 +46,4 @@ endif()
 set(SANITIZER "${SANITIZER}" CACHE STRING "Enabled Sanitizer")
 
 # Build python bindings
-cmake_dependent_option(BUILD_BINDINGS "Build Python bindings" ON "NOT ANDROID" OFF)
+cmake_dependent_option(BUILD_BINDINGS "Build Python bindings" OFF "NOT ANDROID" OFF)

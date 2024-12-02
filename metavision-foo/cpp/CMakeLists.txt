@@ -7,6 +7,8 @@
 # on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
+include(CMakePackageConfigHelpers)
+
 add_library(metavision_foo SHARED)
 add_library(Metavision::foo ALIAS metavision_foo)
 
@@ -34,7 +36,24 @@ if (BUILD_TESTING)
     add_subdirectory(tests)
 endif()
 
-install(TARGETS metavision_foo
+if (NOT BUILD_BINDINGS)
+    install(
+        TARGETS metavision_foo
+        EXPORT metavision_fooTargets
         LIBRARY DESTINATION ${PROJECT_NAME}/lib)
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    install(
+        EXPORT metavision_fooTargets
+        FILE metavision_fooTargets.cmake
+        NAMESPACE Metavision::
+        DESTINATION ${PROJECT_NAME}/lib/cmake/metavision_foo)
+    install(
+        DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
         DESTINATION ${PROJECT_NAME}/include)
+    write_basic_package_version_file(
+        metavision_fooConfigVersion.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY SameMajorVersion)
+    install(
+        FILES metavision_fooConfigVersion.cmake
+        DESTINATION lib/cmake/metavision_foo)
+endif()

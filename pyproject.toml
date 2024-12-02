@@ -36,7 +36,6 @@ dev = [
   "ruff>=0.6.9",
   "cibuildwheel>=2.21.2",
   "cmake>=3.24",
-  "conan>=2.8.0",
   "gcovr>=8.2.0",
   "pre-commit>=3.7.1",
   "pysonar-scanner>=0.1.0.340",
