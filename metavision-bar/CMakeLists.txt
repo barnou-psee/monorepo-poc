@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16..3.31)
 
-project(metavision-foo VERSION 0.0.1 LANGUAGES CXX)
+project(metavision-bar VERSION 0.0.1 LANGUAGES CXX)
 
 include(cmake/utils/configurator.cmake)
 configure_top_level_project()
@@ -10,8 +10,6 @@ include(cmake/utils/add_library_version_header.cmake)
 
 include(CTest)
 
-add_subdirectory(cpp)
+find_package(metavision_foo CONFIG REQUIRED)
 
-if (BUILD_BINDINGS)
-    add_subdirectory(python)
-endif()
+add_subdirectory(cpp)

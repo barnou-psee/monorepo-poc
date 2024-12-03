@@ -1,0 +1,14 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "bindings",
+      "hidden": true,
+      "cacheVariables": {
+        "BUILD_BINDINGS": true,
+        "BUILD_APPS": false,
+        "BUILD_TESTING": false
+      }
+    }
+  ]
+}

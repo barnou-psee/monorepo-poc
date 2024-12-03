@@ -9,14 +9,14 @@
 
 find_package(GTest REQUIRED COMPONENTS gtest_main)
 
-set(testname gtest_metavision_utils_foo)
+set(testname gtest_metavision_utils_bar)
 add_executable(${testname}
-    ${CMAKE_CURRENT_SOURCE_DIR}/metavision_foo_gtest.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/metavision_bar_gtest.cpp
 )
 target_psee_set_shared_options(${testname})
 target_link_libraries(${testname}
     PRIVATE
-        Metavision::foo
+        Metavision::bar
         gtest::gtest
 )
 add_test(
@@ -25,5 +25,5 @@ add_test(
 )
 set_property(
     TEST ${testname}
-    PROPERTY LABELS "gtest" "metavision" "foo"
+    PROPERTY LABELS "gtest" "metavision" "bar"
 )

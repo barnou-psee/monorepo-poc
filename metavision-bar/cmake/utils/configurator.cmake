@@ -14,20 +14,20 @@ macro(configure_top_level_project)
 
   register_global_options()
   
-  set(CPM_SOURCE_CACHE ${ROOT_PROJECT_DIR}/.cache/cpm)
-  set(CPM_USE_NAMED_CACHE_DIRECTORIES ON CACHE BOOL "CPM Option")
-  set(CPM_USE_LOCAL_PACKAGES ON CACHE BOOL "CPM Option")
-  include(${ROOT_CMAKE_CPM_DIR}/get_cpm.cmake)
-  if (BUILD_TESTING)
-    include(${ROOT_CMAKE_CPM_DIR}/_/googletest.cmake)
-  endif()
-  if (BUILD_BINDINGS)
-    include(${ROOT_CMAKE_CPM_DIR}/_/pybind11.cmake)
-  endif()
-
   set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
   set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/bin")
+
+  if (NOT BUILD_SHARED_LIBS)
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+  endif()
+
+  # Configure CCache if available
+  find_program(CCACHE_FOUND ccache)
+  if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+  endif(CCACHE_FOUND)
 endmacro()
 
 macro(register_global_options)
@@ -69,11 +69,4 @@ macro(register_global_options)
 
   # Build python bindings
   cmake_dependent_option(BUILD_BINDINGS "Build Python bindings" ON "NOT ANDROID" OFF)
-endmacro()
-
-macro(register_cpm)
-  set(CPM_SOURCE_CACHE ${ROOT_PROJECT_DIR})
-  set(CPM_USE_NAMED_CACHE_DIRECTORIES ON CACHE BOOL "CPM Option")
-  set(CPM_USE_LOCAL_PACKAGES ON CACHE BOOL "CPM Option")
-  include(${ROOT_CMAKE_CPM_DIR}/get_cpm.cmake)
 endmacro()

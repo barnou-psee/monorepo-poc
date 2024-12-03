@@ -1,0 +1,9 @@
+editables:
+  metavision_bar/0.0.1:
+    path: metavision-bar/conanfile.py
+  metavision_foo/0.0.1:
+    path: metavision-foo/conanfile.py
+workspace_generator: cmake
+root:
+  - metavision_foo/0.0.1
+  - metavision_bar/0.0.1

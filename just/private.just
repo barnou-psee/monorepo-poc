@@ -26,7 +26,17 @@ _check-uv:
 
 _setup-conan:
     #!/bin/bash
-    echo "🚀 Disabling conan installation since no C++ is required"
+    conan remote update conancenter --url="https://center2.conan.io"
+    echo "🚀 Detecting default conan profile"
+    conan profile detect -e
+    echo "🚀 Setting up cimaging conan repo"
+    remotes=$(conan remote list | awk -F':' '{print $1}')
+    if [[ $remotes =~ (^|[[:space:]])cimaging-conan($|[[:space:]]) ]]; then
+        echo "🚀 No need to setup conan remote cimaging-conan, already existing"
+    else
+        conan remote add cimaging-conan https://artifactory.devops.devops-psee.net/artifactory/api/conan/cimaging-conan
+        conan remote login cimaging-conan $JFROG_USERNAME -p $JFROG_TOKEN
+    fi
 
 _check-jfrog:
     #!/bin/bash

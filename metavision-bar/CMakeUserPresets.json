@@ -1,0 +1,10 @@
+{
+    "version": 4,
+    "vendor": {
+        "conan": {}
+    },
+    "include": [
+        "build/Release/generators/CMakePresets.json",
+        "../build/x86-linux-gcc-release-bindings/conan/build/Release/generators/CMakePresets.json"
+    ]
+}
