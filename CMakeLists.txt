@@ -31,5 +31,5 @@ endif(CCACHE_FOUND)
 include(cmake/utils/targets.cmake)
 include(cmake/utils/add_library_version_header.cmake)
 
-add_subdirectory(metavision-foo)
-add_subdirectory(metavision-bar)
+add_subdirectory(metavision)
+add_subdirectory(cimaging)

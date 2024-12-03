@@ -15,9 +15,10 @@ dev-dependencies = []
 metavision-foo = { workspace = true }
 metavision-base = { workspace = true }
 metavision-extended = { workspace = true }
+cimaging-app = { workspace = true }
 
 [tool.uv.workspace]
-members = ["metavision-foo", "metavision-base", "metavision-extended"]
+members = ["metavision/foo", "metavision/base", "metavision/extended", "cimaging/app"]
 
 [project.optional-dependencies]
 docs = [

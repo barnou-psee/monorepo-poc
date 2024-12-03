@@ -7,9 +7,9 @@ import 'just/private.just'
 mod cpp 'just/cpp.just'
 mod py 'just/py.just'
 
-mod foo 'metavision-foo/justfile'
-mod base 'metavision-base/justfile'
-mod extended 'metavision-extended/justfile'
+mod foo 'metavision/foo/justfile'
+mod base 'metavision/base/justfile'
+mod extended 'metavision/extended/justfile'
 
 # Install uv environement
 install: _check-uv _check-jfrog
