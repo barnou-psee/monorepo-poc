@@ -5,22 +5,17 @@ requires-python = ">=3.10,<4.0"
 dependencies = []
 
 [build-system]
-requires = ["scikit-build-core"]
-build-backend = "scikit_build_core.build"
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
-[tool.scikit-build]
-cmake.version = ">=3.26.1"
-cmake.args = ["--preset", "x86-linux-gcc-release-bindings"]
-wheel.packages = ["python/metavision"]
-wheel.license-files = []
-sdist.include = ["python/metavision/**/*.so"]
-build.verbose = true
-build-dir = "../build/x86-linux-gcc-release-bindings"
-build.targets = ["_foo"]
+[tool.setuptools.package-data]
+"metavision.foo" = ["*.so"]
 
-[tool.scikit-build.metadata.version]
-provider = "scikit_build_core.metadata.regex"
-input = "CMakeLists.txt"
-regex = 'project\([^)]+ VERSION (?P<value>[0-9.]+)'
+[tool.setuptools.packages.find]
+where = ["python/"]
+include = ["metavision.foo"]
+
+[tool.setuptools.dynamic]
+version = {attr = "metavision.foo.__version__"}
 
 [tool.uv.sources]

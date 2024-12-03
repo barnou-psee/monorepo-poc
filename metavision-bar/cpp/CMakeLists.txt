@@ -27,6 +27,7 @@ target_include_directories(metavision_bar
         $<INSTALL_INTERFACE:${PROJECT_NAME}/include>)
 target_link_libraries(metavision_bar
     PRIVATE
+        Metavision::foo
         Metavision::bar)
       
 add_library_version_header(Metavision bar ${CMAKE_CURRENT_SOURCE_DIR}/include/metavision/bar/version.h)

@@ -10,6 +10,8 @@ _clean-build:
 [no-cd]
 build: _clean-build
     @echo "🚀 Building project"
+    cmake --preset x86-linux-gcc-release-bindings
+    cmake --build --preset x86-linux-gcc-release-bindings
     uv build --all-packages
 
 # Test with pytest
