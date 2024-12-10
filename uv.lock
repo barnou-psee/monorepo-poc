@@ -3,6 +3,7 @@ requires-python = ">=3.10, <4.0"
 
 [manifest]
 members = [
+    "cimaging-app",
     "metavision-base",
     "metavision-extended",
     "metavision-foo",
@@ -150,6 +151,21 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/fb/e6/056885ae28e9a3abb00de8980d3fcff178c1f4aa1f286f6eb4fcd4fb4035/cibuildwheel-2.22.0.tar.gz", hash = "sha256:6651e775ac26a86a49d67639aa3540f19728caf0dfcd80f156ba4f241aad4940", size = 294453 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/de/67bc9e8972717710a6faf814b7613653ab9efe7507015ca0ead4eba0f8cf/cibuildwheel-2.22.0-py3-none-any.whl", hash = "sha256:c40bb7ac7b57fed8195fca624cc9bd68334375d32b75bea6fa8330ac1cd902c4", size = 91689 },
+]
+
+[[package]]
+name = "cimaging-app"
+version = "0.0.1"
+source = { editable = "cimaging/app" }
+dependencies = [
+    { name = "metavision-base" },
+    { name = "metavision-foo" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "metavision-base", editable = "metavision/base" },
+    { name = "metavision-foo", editable = "metavision/foo" },
 ]
 
 [[package]]
@@ -621,7 +637,7 @@ wheels = [
 [[package]]
 name = "metavision-base"
 version = "0.1.0"
-source = { editable = "metavision-base" }
+source = { editable = "metavision/base" }
 dependencies = [
     { name = "metavision-foo" },
     { name = "numpy" },
@@ -629,25 +645,25 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "metavision-foo", editable = "metavision-foo" },
+    { name = "metavision-foo", editable = "metavision/foo" },
     { name = "numpy" },
 ]
 
 [[package]]
 name = "metavision-extended"
 version = "0.1.0"
-source = { editable = "metavision-extended" }
+source = { editable = "metavision/extended" }
 dependencies = [
     { name = "metavision-base" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "metavision-base", editable = "metavision-base" }]
+requires-dist = [{ name = "metavision-base", editable = "metavision/base" }]
 
 [[package]]
 name = "metavision-foo"
 version = "0.0.1"
-source = { editable = "metavision-foo" }
+source = { editable = "metavision/foo" }
 
 [[package]]
 name = "mkdocs"
@@ -785,7 +801,7 @@ wheels = [
 [[package]]
 name = "monorepo-poc"
 version = "0.1"
-source = { editable = "." }
+source = { virtual = "." }
 dependencies = [
     { name = "metavision-base" },
     { name = "metavision-extended" },
@@ -849,9 +865,9 @@ requires-dist = [
     { name = "deptry", marker = "extra == 'dev'", specifier = ">=0.20.0" },
     { name = "gcovr", marker = "extra == 'dev'", specifier = ">=8.2.0" },
     { name = "griffe", marker = "extra == 'docs'", specifier = ">=1.2.0" },
-    { name = "metavision-base", editable = "metavision-base" },
-    { name = "metavision-extended", editable = "metavision-extended" },
-    { name = "metavision-foo", editable = "metavision-foo" },
+    { name = "metavision-base", editable = "metavision/base" },
+    { name = "metavision-extended", editable = "metavision/extended" },
+    { name = "metavision-foo", editable = "metavision/foo" },
     { name = "mkdocs", marker = "extra == 'docs'", specifier = ">=1.6.1" },
     { name = "mkdocs-autorefs", marker = "extra == 'docs'", specifier = ">=1.2.0" },
     { name = "mkdocs-material", marker = "extra == 'docs'", specifier = ">=9.5.39" },

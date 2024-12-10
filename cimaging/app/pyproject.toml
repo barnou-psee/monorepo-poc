@@ -1,6 +1,6 @@
 [project]
 name = "cimaging-app"
-dynamic = ["version"]
+version = "0.0.1"
 requires-python = ">=3.10,<4.0"
 dependencies = [
   "metavision-foo==0.0.1",
@@ -17,8 +17,5 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.packages.find]
 where = ["python/"]
 include = ["cimaging.app"]
-
-[tool.setuptools.dynamic]
-version = {attr = "cimaging.app.__version__"}
 
 [tool.uv.sources]
