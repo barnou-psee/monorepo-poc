@@ -30,7 +30,7 @@ docs = [
 dev = [
   "commitizen>=3.29.1",
   "cz-github-jira-conventional>=3.0.0",
-  "mypy>=1.5.1",
+  "mypy>=1.13.0",
   "deptry>=0.20.0",
   "ruff>=0.6.9",
   "cibuildwheel>=2.21.2",
@@ -49,6 +49,9 @@ all = [
   "monorepo-poc[docs]",
   "monorepo-poc[dev]",
   "monorepo-poc[test]",
+]
+mypy = [
+  "pandas-stubs>=2.2.3",
 ]
 
 [tool.pytest.ini_options]

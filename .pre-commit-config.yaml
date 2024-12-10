@@ -39,12 +39,12 @@ repos:
       - id: prettier
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.6.1
+    rev: v1.13.0
     hooks:
       - id: mypy
         language: system
         # using mypy.ini configuration file because cannot set flags for sub packages [mypy-metavision.*] when using pyproject.toml
-        args: ["--config-file", "mypy.ini"]
+        args: ["--config-file", "mypy.ini", "--explicit-package-bases"]
         verbose: true
 
   - repo: https://github.com/astral-sh/uv-pre-commit

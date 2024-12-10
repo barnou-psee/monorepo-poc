@@ -7,6 +7,7 @@
 from typing import Tuple
 
 import numpy as np
+import pandas as pd
 
 
 def random_float(shape: Tuple[int, ...]) -> np.ndarray:
@@ -17,3 +18,8 @@ def random_float(shape: Tuple[int, ...]) -> np.ndarray:
 def random_int(shape: Tuple[int, ...]) -> np.ndarray:
     """Get a random int array"""
     return np.random.random(shape).astype(np.int32)
+
+
+def random_dataframe(n_rows: int, n_columns: int) -> pd.DataFrame:
+    """Get a random dataframe"""
+    return pd.DataFrame(random_float((n_rows, n_columns)))
