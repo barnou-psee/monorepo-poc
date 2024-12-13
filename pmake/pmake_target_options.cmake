@@ -7,7 +7,7 @@
 # on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-function(get_target_link_directive target directive)
+function(_get_target_link_directive target directive)
   get_target_property(type ${target} TYPE)
   if (${type} STREQUAL "INTERACE_LIBRARY")
     set(${directive} INTERFACE PARENT_SCOPE)
@@ -16,51 +16,19 @@ function(get_target_link_directive target directive)
   endif()
 endfunction()
 
-function(target_psee_set_generic_options target)
-  get_target_link_directive(${target} directive)
-  target_compile_options(${target} ${directive} "-fexceptions")
-  if (MSVC)
-    find_path(VCPKG_INCLUDE_DIR dirent.h)
-    target_include_directories(${target}
-        ${directive}
-            $<BUILD_INTERFACE:${VCPKG_INCLUDE_DIR}>
-            $<INSTALL_INTERFACE:include>)
-
-    target_compile_definitions(${target}
-        ${directive}
-          "__PRETTY_FUNCTION__=__FUNCSIG__"
-          "_USE_MATH_DEFINES"
-          "BOOST_ALL_NO_LIB"
-          "_CRT_SECURE_NO_WARNINGS"
-          "_SCL_SECURE_NO_WARNINGS")
-
-    if (CMAKE_BUILD_TYPE_LOWER STREQUAL "release")
-      target_compile_options(${target} ${directive} INTERFACE "/wd\\\"4244\\\" /wd\\\"4267\\\"")
-    endif()
-  else()
-    target_compile_options(${target} ${directive} "-Wall" "-Wextra")
-  endif()
-
-  if (CMAKE_BUILD_TYPE_LOWER STREQUAL "debug")
-    target_compile_options(${target} ${directive} "-g")
-    target_compile_definitions(${target} ${directive} "DEBUG")
-  else()
-  endif()
-endfunction()
-
-function(target_psee_set_coverage target)
+function(pmake_target_options_coverage target)
   if (COVERAGE)
-    get_target_link_directive(${target} directive)
+    _get_target_link_directive(${target} directive)
     target_compile_options(${target} ${directive} "--coverage" "-fno-inline")
     target_link_options(${target} ${directive} "--coverage")
   endif()
 endfunction()
 
-function(target_psee_set_sanitizer target)
+function(pmake_target_options_sanitizer target)
   if (CMAKE_BUILD_TYPE_LOWER STREQUAL "release")
       message(STATUS "No sanitizer in release")
   else()
-      get_target_link_directive(${target} directive)
+      _get_target_link_directive(${target} directive)
       string(TOLOWER ${SANITIZER} SANITIZER_LOWER)
       target_compile_options(${target} ${directive} "-fsanitize-recover=address")
       if (SANITIZER_LOWER STREQUAL "address")
@@ -87,8 +55,8 @@ function(target_psee_set_sanitizer target)
   endif()
 endfunction()
 
-function(target_psee_set_optimization target)
-  get_target_link_directive(${target} directive)
+function(pmake_target_options_optimization target)
+  _get_target_link_directive(${target} directive)
   if (CMAKE_BUILD_TYPE_LOWER STREQUAL "debug")
     if (SANITIZER_LOWER STREQUAL "address")
         target_link_libraries(${target} ${directive} "-O1")
@@ -106,9 +74,36 @@ function(target_psee_set_optimization target)
   endif()
 endfunction()
 
-function(target_psee_set_shared_options target)
-  target_psee_set_generic_options(${target})
-  target_psee_set_coverage(${target})
-  target_psee_set_sanitizer(${target})
-  target_psee_set_optimization(${target})
+function(pmake_target_options target)
+  _get_target_link_directive(${target} directive)
+  target_compile_options(${target} ${directive} "-fexceptions")
+  if (MSVC)
+    find_path(VCPKG_INCLUDE_DIR dirent.h)
+    target_include_directories(${target}
+        ${directive}
+            $<BUILD_INTERFACE:${VCPKG_INCLUDE_DIR}>
+            $<INSTALL_INTERFACE:include>)
+
+    target_compile_definitions(${target}
+        ${directive}
+          "__PRETTY_FUNCTION__=__FUNCSIG__"
+          "_USE_MATH_DEFINES"
+          "BOOST_ALL_NO_LIB"
+          "_CRT_SECURE_NO_WARNINGS"
+          "_SCL_SECURE_NO_WARNINGS")
+
+    if (CMAKE_BUILD_TYPE_LOWER STREQUAL "release")
+      target_compile_options(${target} ${directive} INTERFACE "/wd\\\"4244\\\" /wd\\\"4267\\\"")
+    endif()
+  else()
+    target_compile_options(${target} ${directive} "-Wall" "-Wextra")
+  endif()
+
+  if (CMAKE_BUILD_TYPE_LOWER STREQUAL "debug")
+    target_compile_options(${target} ${directive} "-g")
+    target_compile_definitions(${target} ${directive} "DEBUG")
+  endif()
+  pmake_target_options_coverage(${target})
+  pmake_target_options_sanitizer(${target})
+  pmake_target_options_optimization(${target})
 endfunction()

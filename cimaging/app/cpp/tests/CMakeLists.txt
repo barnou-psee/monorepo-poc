@@ -7,11 +7,13 @@
 # on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
+find_package(GTest REQUIRED)
+
 set(testname gtest_cimaging_utils_app)
 add_executable(${testname}
     ${CMAKE_CURRENT_SOURCE_DIR}/cimaging_app_gtest.cpp
 )
-target_psee_set_shared_options(${testname})
+pmake_target_options(${testname})
 target_link_libraries(${testname}
     PRIVATE
         CImaging::app

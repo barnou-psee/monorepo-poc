@@ -1,18 +1,39 @@
 [project]
 name = "metavision-foo"
-version = "0.0.1"
+dynamic = ["version"]
 requires-python = ">=3.10,<4.0"
 dependencies = []
 
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["scikit-build-core"]
+build-backend = "scikit_build_core.build"
 
-[tool.setuptools.package-data]
-"metavision.foo" = ["*.so"]
+[tool.scikit-build]
+cmake.define = { BUILD_BINDINGS = "ON", CMAKE_PROJECT_TOP_LEVEL_INCLUDES = "conan_provider.cmake" }
+ninja.version = ">=1.5"
+wheel.packages = ["python/metavision"]
+wheel.license-files = []
+sdist.include = ["python/metavision/**/*.so"]
+build.verbose = true
 
-[tool.setuptools.packages.find]
-where = ["python/"]
-include = ["metavision.foo"]
+[tool.scikit-build.metadata.version]
+provider = "scikit_build_core.metadata.regex"
+input = "CMakeLists.txt"
+regex = 'project\([^)]+ VERSION (?P<value>[0-9.]+)'
+
+[tool.cibuildwheel]
+# Installs conan, ninja, and links /usr/bin/sh to /bin/sh for CMake
+before-all = [
+  "curl -L https://github.com/conan-io/conan/releases/download/2.10.2/conan-2.10.2-linux-x86_64.tgz | tar -xz -C /",
+  "conan remote add cimaging-conan https://artifactory.devops.devops-psee.net/artifactory/api/conan/cimaging-conan",
+  "conan remote login cimaging-conan $JFROG_USERNAME -p $JFROG_TOKEN",
+  "ln -s /usr/bin/sh /bin/sh",
+  "echo \"conan_home=/host/$CONAN_HOME\" > .conanrc",
+  "cat .conanrc"
+]
+build = "cp310-manylinux_x86_64 cp312-manylinux_x86_64"
+build-verbosity = 1
+test-requires = "pytest>=8.3.3"
+test-command = "pytest {project} -vv"
 
 [tool.uv.sources]

@@ -1,0 +1,9 @@
+editables:
+  cimaging-app/0.0.1:
+    path: cimaging/app/conanfile.py
+  metavision-bar/0.0.1:
+    path: metavision/bar/conanfile.py
+  metavision-foo/0.0.1:
+    path: metavision/foo/conanfile.py
+  pmake/1.0.0:
+    path: pmake/conanfile.py

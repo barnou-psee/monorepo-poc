@@ -11,7 +11,7 @@ find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 find_package(pybind11 CONFIG REQUIRED)
 
 python_add_library(_foo MODULE bindings/metavision_foo_bindings.cpp WITH_SOABI)
-target_psee_set_shared_options(_foo)
+pmake_target_options(_foo)
 target_link_libraries(_foo PRIVATE pybind11::headers Metavision::foo)
 
 # This is passing in the version as a define just as an example

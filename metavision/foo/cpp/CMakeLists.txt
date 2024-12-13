@@ -16,8 +16,6 @@ set_target_properties(metavision_foo
     PROPERTIES
         DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX}
         VERSION ${PROJECT_VERSION})
-
-target_psee_set_shared_options(metavision_foo)
 target_sources(metavision_foo
     PRIVATE
         src/foo.cpp)
@@ -29,7 +27,8 @@ target_link_libraries(metavision_foo
     PRIVATE
         Metavision::foo)
       
-add_library_version_header(Metavision foo ${CMAKE_CURRENT_SOURCE_DIR}/include/metavision/foo/version.h)
+pmake_target_options(metavision_foo)
+pmake_generate_version_file(Metavision foo ${CMAKE_CURRENT_SOURCE_DIR}/include/metavision/foo/version.h)
 
 # Tests
 if (BUILD_TESTING)

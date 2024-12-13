@@ -9,6 +9,8 @@
 
 include(CMakePackageConfigHelpers)
 
+find_package(Metavision COMPONENTS foo REQUIRED)
+
 add_library(metavision_bar SHARED)
 add_library(Metavision::bar ALIAS metavision_bar)
 
@@ -17,7 +19,6 @@ set_target_properties(metavision_bar
         DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX}
         VERSION ${PROJECT_VERSION})
 
-target_psee_set_shared_options(metavision_bar)
 target_sources(metavision_bar
     PRIVATE
         src/bar.cpp)
@@ -30,7 +31,8 @@ target_link_libraries(metavision_bar
         Metavision::foo
         Metavision::bar)
       
-add_library_version_header(Metavision bar ${CMAKE_CURRENT_SOURCE_DIR}/include/metavision/bar/version.h)
+pmake_target_options(metavision_bar)
+pmake_generate_version_file(Metavision bar ${CMAKE_CURRENT_SOURCE_DIR}/include/metavision/bar/version.h)
 
 # Tests
 if (BUILD_TESTING)

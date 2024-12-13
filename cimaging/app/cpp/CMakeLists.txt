@@ -17,7 +17,6 @@ set_target_properties(cimaging_app
         DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX}
         VERSION ${PROJECT_VERSION})
 
-target_psee_set_shared_options(cimaging_app)
 target_sources(cimaging_app
     PRIVATE
         src/app.cpp)
@@ -30,7 +29,8 @@ target_link_libraries(cimaging_app
         Metavision::foo
         CImaging::app)
       
-add_library_version_header(CImaging app ${CMAKE_CURRENT_SOURCE_DIR}/include/cimaging/app/version.h)
+pmake_target_options(cimaging_app)
+pmake_generate_version_file(CImaging app ${CMAKE_CURRENT_SOURCE_DIR}/include/cimaging/app/version.h)
 
 # Tests
 if (BUILD_APPS)

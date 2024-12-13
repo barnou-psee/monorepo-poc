@@ -1,18 +1,12 @@
 include(CMakeDependentOption)
 
-set(ROOT_PROJECT_DIR ${CMAKE_CURRENT_LIST_DIR}/../..)
-set(ROOT_CMAKE_DIR ${ROOT_PROJECT_DIR}/cmake)
-set(ROOT_CMAKE_UTILS_DIR ${ROOT_CMAKE_DIR}/utils)
-set(ROOT_CMAKE_CPM_DIR ${ROOT_CMAKE_DIR}/cpm)
-
-macro(configure_top_level_project)
+macro(pmake_configure_project)
+  ## Configuration
   set(CMAKE_CXX_STANDARD 17)
   set(CMAKE_CXX_STANDARD_REQUIRED ON)
   set(CMAKE_CXX_EXTENSIONS OFF)
   set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
   set(CMAKE_DEBUG_POSTFIX "d")
-
-  register_global_options()
   
   set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
   set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
@@ -28,9 +22,8 @@ macro(configure_top_level_project)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
   endif(CCACHE_FOUND)
-endmacro()
 
-macro(register_global_options)
+  ## Options  
   # Build the tests
   option(BUILD_TESTING "Build tests" ON)
 
@@ -68,5 +61,5 @@ macro(register_global_options)
   set(SANITIZER "${SANITIZER}" CACHE STRING "Enabled Sanitizer")
 
   # Build python bindings
-  cmake_dependent_option(BUILD_BINDINGS "Build Python bindings" ON "NOT ANDROID" OFF)
+  cmake_dependent_option(BUILD_BINDINGS "Build Python bindings" OFF "NOT ANDROID" OFF)
 endmacro()

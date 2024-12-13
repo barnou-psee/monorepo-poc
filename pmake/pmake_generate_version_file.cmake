@@ -48,7 +48,7 @@ configure_file(\"${CMAKE_CURRENT_LIST_DIR}/version.h.in\" \"\${OUTPUTFILE}\" @ON
 #  otherwise the PROJECT_VERSION will be used
 #
 include(CMakeParseArguments)
-function(add_library_version_header namespace module outputfile)
+function(pmake_generate_version_file namespace module outputfile)
 
     set(VERSION_MAJOR ${PROJECT_VERSION_MAJOR})
     set(VERSION_MINOR ${PROJECT_VERSION_MINOR})
@@ -91,4 +91,4 @@ function(add_library_version_header namespace module outputfile)
             message(FATAL_ERROR "Error execuding command \n'${version_file_command}' :\n${err}")
         endif()
     endif()
-endfunction(add_library_version_header)
+endfunction()
